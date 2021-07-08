@@ -11,22 +11,33 @@ Data aggregation can be time consuming and can use up large amount of computing 
 2. test_features.csv
 3. train_salaries.csv
 
-**Amazon Managed Apache Airflow (MWAA)**: A serviced hosted on AWS that manage Apache Airflow on the server side. This takes away the user's responsibility in repetitively configuring the airflow environment, which can be unnecessarily time-consuming and mundane. I decided to launch an airflow environment on Amazon MWAA so I can manage the data pipeline without having to worry about the underlying hardware configuration. 
+**Amazon Managed Apache Airflow (MWAA)**: A service hosted on AWS that manage Apache Airflow on the server side. This takes away the user's responsibility in repetitively configuring the airflow environment, which can be unnecessarily time-consuming and mundane. I decided to launch an airflow environment on Amazon MWAA so I can manage the data pipeline without having to worry about the underlying hardware configuration. 
 
 **Amazon Elastic MapReduce (EMR)**: Amazon EMR can be used to process a large amount of data using tools such as Apache Hadoop/Spark. The user can easily provision resources for the clusters in a highly scalable Big Data environment. 
 
-**Goal**: Launch an Amazon MWAA environment to create a data pipeline that orchestrates a batch ETL processing workflow in Amazon EMR.
+**Amazon CloudFormation**: A service that provisions a set of infrastructure resources in a reuseable way by a template. For example, you can launch multiple AWS services simultaneously by specifying the corresponding configuration.
 
-**Architecture Overivew**: At a high level, the AWS cloud environment for this project is illustrated below.
+## Goal
+Launch an Amazon MWAA environment to create a data pipeline that orchestrates a batch ETL processing workflow in Amazon EMR.
+
+## Architecture Overview
+At a high level, the AWS cloud environment for this project is illustrated below. 
 
 ![](images/architecture_overview.png)
  
-- The Amazon MWAA environment requires a VPC that spans across 2 different availability zones, each of which consists of a public and a private subnet, respectively. 
-- The airflow environment will run in the private subnets and be connected to the internet through a NAT gateway in the public subnets. 
-- A S3 gateway VPC endpoint is established in each availability zone to ensure private connection between Amazon MWAA and Amazon S3.
-- An EMR interface VPC endpoint is established in each availability zone to ensure secure connection to Amazon EMR from Amazon MWAA.
+An Amazon MWAA environment requires the following resources:
+- a VPC that spans across 2 different availability zones, each of which consists of a public and a private subnet, respectively. 
+- a NAT gateway with a route table in each public subnet to connect to the internet 
+- A S3 gateway VPC endpoint in each availability zone to ensure private connection between Amazon MWAA and Amazon S3.
+- An EMR interface VPC endpoint in each availability zone to ensure secure connection to Amazon EMR from Amazon MWAA.
 
-## Pipeline Design
+All the above resources are provisioned in the template airflow_cft.yml using Amazon CloudFormation. These are essential in properly setting up the airflow environment in AWS MWAA. Reference the pipeline design diagram below for a clearer illustration.
 
 ![](images/pipeline_design.png)
 
+## Pipeline Design
+
+![]
+
+At a high-level, the data pipeline orchestrates the following tasks:
+1. 
