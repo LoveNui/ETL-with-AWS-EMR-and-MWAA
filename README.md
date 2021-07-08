@@ -11,3 +11,8 @@ Data aggregation can be time consuming and can use up large amount of computing 
 2. test_features.csv
 3. train_salaries.csv
 
+**Goal**: Create a data pipeline using Amazon Managed Apache Airflow (MWAA) to orchestrate and automate batch ETL processing workflow in AWS. 
+
+**Architecture Overivew**: At a high level, the AWS cloud environment is illustrated below.
+
+![](images/architecture_overview.png)
