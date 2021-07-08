@@ -80,7 +80,7 @@ At a high-level, the data pipeline orchestrates the following tasks:
 
 ![](images/spark_step.PNG)
 
-The DAG schedule interval for the DAG is `0 0 0 * *`; if the DAG keeps staying ON it will be triggered once every day at 12:00 AM. Once the Spark step is completed, we should see that all the steps succeeded like in the follwing tree view in the airflow UI
+- The DAG schedule interval for the DAG is `0 0 0 * *`; if the DAG keeps staying ON it will be triggered once every day at 12:00 AM. Once the Spark step is completed, we should see that all the steps succeeded like in the follwing tree view in the airflow UI
 
 ![](images/salary_pipeline_dag_tree.PNG)
 
