@@ -31,13 +31,20 @@ An Amazon MWAA environment requires the following resources:
 - A S3 gateway VPC endpoint in each availability zone to ensure private connection between Amazon MWAA and Amazon S3.
 - An EMR interface VPC endpoint in each availability zone to ensure secure connection to Amazon EMR from Amazon MWAA.
 
-All the above resources are provisioned in the template airflow_cft.yml using Amazon CloudFormation. These are essential in properly setting up the airflow environment in AWS MWAA. Reference the pipeline design diagram below for a clearer illustration.
+All the above resources are provisioned in the template airflow_cft.yml using Amazon CloudFormation. These are essential in properly setting up the airflow environment in AWS MWAA. Reference the workflow diagram below for a clearer illustration. 
+
+## Workflow Diagram
 
 ![](images/pipeline_design.png)
 
 ## Pipeline Design
 
-![]
+![](images/salary_pipeline_dag_graph.PNG)
 
 At a high-level, the data pipeline orchestrates the following tasks:
-1. 
+1. Trigger the DAG
+2. Provision an EMR cluster
+3. Submit a spark step in the EMR cluster nodes that executes the ETL workflow 
+4. Wait for the spark submission to complete
+5. Terminate the EMR cluster
+6. End the DAG
