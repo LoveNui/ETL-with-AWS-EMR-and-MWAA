@@ -48,3 +48,40 @@ At a high-level, the data pipeline orchestrates the following tasks:
 4. Wait for the spark submission to complete
 5. Terminate the EMR cluster
 6. End the DAG
+
+## Getting Started
+
+***1. Create an Amazon S3 bucket in the same region where you are creating the Amazon MWAA environment***
+
+- Make sure the bucket name starts with 'airflow-' in order to be compatible with the template we will use later on. 
+- Upload the data, the avg_sal_etl.py file, the CloudFormation template airflow_cft.yml, and the DAG.py file for the data pipeline.
+
+![](images/S3_bucket_prerequisites.PNG)
+
+***2. Launch the MWAA airflow environment in CloudFormation with airflow_cft.yml***
+
+- Wait for the template to complete; it should take around 20 minutes.
+
+![](images/cloudformation_template.PNG)
+
+***3. Go to Amazon Managed Apache Airflow and open the airflow UI***
+
+- Turn on to start the DAG. Manually trigger the DAG if necessary. 
+
+![](images/airflow_dag.PNG)
+
+***4. Amazon EMR cluster automatically provisioned and Spark application submitted***
+
+![](images/emr_profile.PNG)
+
+![](images/spark_step.PNG)
+
+
+
+
+
+
+
+
+
+
