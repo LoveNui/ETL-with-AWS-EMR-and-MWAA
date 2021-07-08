@@ -67,16 +67,26 @@ At a high-level, the data pipeline orchestrates the following tasks:
 ***3. Go to Amazon Managed Apache Airflow and open the airflow UI***
 
 - Turn on to start the DAG. Manually trigger the DAG if necessary. 
+- The airflow DAG runs on the DAG.py file in s3://airflow-salary-prediction-de/dags/
 
 ![](images/airflow_dag.PNG)
 
 ***4. Amazon EMR cluster automatically provisioned and Spark application submitted***
 
+- Go to Amazon EMR and find the cluster that's running.
+- Double check that the average salary step is in queue waiting to be executed.
+
 ![](images/emr_profile.PNG)
 
 ![](images/spark_step.PNG)
 
+The DAG schedule interval for the DAG is `0 0 0 * *`; if the DAG keeps staying ON it will be triggered once every day at 12:00 AM. Once the Spark step is completed, we should see that all the steps succeeded like in the follwing tree view in the airflow UI
 
+![](images/salary_pipeline_dag_tree.PNG)
+
+***5. After the Spark step is completed, go to S3 bucket and check the output***
+
+![](images/output.PNG)
 
 
 
