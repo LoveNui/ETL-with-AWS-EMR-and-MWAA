@@ -63,7 +63,7 @@ At a high-level, the data pipeline orchestrates the following tasks:
 
 - Amazon MWAA isn't available across all regions. Make sure you select a region where the service is actually available.
 - Make sure the bucket name starts with 'airflow-' in order to be compatible with the template we will use later on. (You may need to change the bucket name in [DAG.py](dags/DAG.py) and [avg_sal_etl.py](avg_sal_etl.py).)
-- Create a folder named data and upload the files [data/train_features.csv](data/train_features.csv), [data/train_salaries.csv](data/train_salaries.csv), and [data/test_features.csv](data/test_features.csv). 
+- Create a folder named data and upload the files [train_features.csv](data/train_features.csv), [train_salaries.csv](data/train_salaries.csv), and [test_features.csv](data/test_features.csv). 
 - Create a folder named dags and upload the [DAG.py](dags/DAG.py) file. You must put the file in the dags folder since the airflow environment will look specifically for this folder.
 - Create a folder named etl and upload the [avg_sal_etl.py](avg_sal_etl.py) file.
 
