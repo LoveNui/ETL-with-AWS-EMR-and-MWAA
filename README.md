@@ -104,7 +104,7 @@ At a high-level, the data pipeline orchestrates the following tasks:
 
 - The Spark job executed in Amazon EMR calculates the average salary of each group within each categorical variables. For example, the following output is the average salary of each industry
 
-![](images/output_exmaple.PNG)
+![](images/output_example.PNG)
 
 ***7. Clean up the environment***
 
