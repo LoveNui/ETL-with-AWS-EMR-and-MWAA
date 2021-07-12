@@ -51,6 +51,14 @@ At a high-level, the data pipeline orchestrates the following tasks:
 
 ## Getting Started
 
+***1. Create a keypair for instance security access***
+
+- Go to Amazon EC2 and scroll down to the Network & Security section
+- Create a keypair in .pem format called NV-keypair (or another name you like; but make sure you manually change the keypair name in [DAG.py](dags/DAG.py).)
+- The EMR_EC2_DefaultRole and EMR_DefaultRole will be automatically created for you by AWS. These IAM roles allow your EC2 instances in the spark cluster to assume the role necessary to access and work with Amazon EMR
+
+![](images/dag_spark_config.PNG)
+
 ***1. Create an Amazon S3 bucket in the same region where you are creating the Amazon MWAA environment***
 
 - Make sure the bucket name starts with 'airflow-' in order to be compatible with the template we will use later on. 
