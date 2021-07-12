@@ -59,27 +59,30 @@ At a high-level, the data pipeline orchestrates the following tasks:
 
 ![](images/dag_spark_config.PNG)
 
-***1. Create an Amazon S3 bucket in the same region where you are creating the Amazon MWAA environment***
+***2. Create an Amazon S3 bucket in the same region where you are creating the Amazon MWAA environment***
 
-- Make sure the bucket name starts with 'airflow-' in order to be compatible with the template we will use later on. 
-- Upload the data, the avg_sal_etl.py file, the CloudFormation template airflow_cft.yml, and the DAG.py file for the data pipeline.
+- Amazon MWAA isn't available across all regions. Make sure you select a region where the service is actually available.
+- Make sure the bucket name starts with 'airflow-' in order to be compatible with the template we will use later on. (You may need to change the bucket name in [DAG.py](dags/DAG.py) and [avg_sal_etl.py](avg_sal_etl.py).)
+- Create a folder named data and upload the files [data/train_features.csv](data/train_features.csv), [data/train_salaries.csv](data/train_salaries.csv), and [data/test_features.csv](data/test_features.csv). 
+- Create a folder named dags and upload the [DAG.py](dags/DAG.py) file. You must put the file in the dags folder since the airflow environment will look specifically for this folder.
+- Create a folder named etl and upload the [avg_sal_etl.py](avg_sal_etl.py) file.
 
 ![](images/S3_bucket_prerequisites.PNG)
 
-***2. Launch the MWAA airflow environment in CloudFormation with airflow_cft.yml***
+***3. Launch the MWAA airflow environment in CloudFormation with airflow_cft.yml***
 
 - Wait for the template to complete; it should take around 20 minutes.
 
 ![](images/cloudformation_template.PNG)
 
-***3. Go to Amazon Managed Apache Airflow and open the airflow UI***
+***4. Go to Amazon Managed Apache Airflow and open the airflow UI***
 
 - Turn on to start the DAG. Manually trigger the DAG if necessary. 
 - The airflow DAG runs on the DAG.py file in s3://airflow-salary-prediction-de/dags/
 
 ![](images/airflow_dag.PNG)
 
-***4. Amazon EMR cluster automatically provisioned and Spark application submitted***
+***5. Amazon EMR cluster automatically provisioned and Spark application submitted***
 
 - Go to Amazon EMR and find the cluster that's running.
 - Double check that the average salary step is in queue waiting to be executed.
@@ -90,7 +93,7 @@ At a high-level, the data pipeline orchestrates the following tasks:
 
 ![](images/salary_pipeline_dag_tree.PNG)
 
-***5. After the Spark step is completed, go to S3 bucket and check the output***
+***6. After the Spark step is completed, go to S3 bucket and check the output***
 
 ![](images/output.PNG)
 
