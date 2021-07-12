@@ -7,9 +7,9 @@ Data aggregation can be time consuming and can use up large amount of computing 
 ## Introduction
 
 **Datasets**: The source data consists of three CSV files and are stored on Cloud in an Amazon S3 bucket. Each observation represents an individual's job posting; each column represents unqiue information about this applicant and the job applied to.
-1. train_features.csv
-2. test_features.csv
-3. train_salaries.csv
+1. [train_features.csv](data/train_features.csv)
+2. [test_features.csv](data/test_features.csv)
+3. [train_salaries.csv](data/train_salaries.csv)
 
 **Amazon Managed Apache Airflow (MWAA)**: A service hosted on AWS that manage Apache Airflow on the server side. This takes away the user's responsibility in repetitively configuring the airflow environment, which can be unnecessarily time-consuming and mundane. I decided to launch an airflow environment on Amazon MWAA so I can manage the data pipeline without having to worry about the underlying hardware configuration. 
 
@@ -31,7 +31,7 @@ An Amazon MWAA environment requires the following resources:
 - A S3 gateway VPC endpoint in each availability zone to ensure private connection between Amazon MWAA and Amazon S3.
 - An EMR interface VPC endpoint in each availability zone to ensure secure connection to Amazon EMR from Amazon MWAA.
 
-All the above resources are provisioned in the template airflow_cft.yml using Amazon CloudFormation. These are essential in properly setting up the airflow environment in AWS MWAA. Reference the workflow diagram below for a clearer illustration. 
+All the above resources are provisioned in the template [airflow_cft.yml](airflow_cft.yml) using Amazon CloudFormation. These are essential in properly setting up the airflow environment in AWS MWAA. Reference the workflow diagram below for a clearer illustration. 
 
 ## Workflow Diagram
 
