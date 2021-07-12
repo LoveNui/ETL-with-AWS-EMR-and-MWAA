@@ -11,6 +11,8 @@ Data aggregation can be time consuming and can use up large amount of computing 
 2. [test_features.csv](data/test_features.csv)
 3. [train_salaries.csv](data/train_salaries.csv)
 
+![](images/data.PNG)
+
 **Amazon Managed Apache Airflow (MWAA)**: A service hosted on AWS that manage Apache Airflow on the server side. This takes away the user's responsibility in repetitively configuring the airflow environment, which can be unnecessarily time-consuming and mundane. I decided to launch an airflow environment on Amazon MWAA so I can manage the data pipeline without having to worry about the underlying hardware configuration. 
 
 **Amazon Elastic MapReduce (EMR)**: Amazon EMR can be used to process a large amount of data using tools such as Apache Hadoop/Spark. The user can easily provision resources for the spark clusters in a highly scalable Big Data environment. 
