@@ -7,15 +7,15 @@ Data aggregation can be time consuming and can use up large amount of computing 
 ## Introduction
 
 **Datasets**: The source data consists of three CSV files and are stored on Cloud in an Amazon S3 bucket. Each observation represents an individual's job posting; each column represents unqiue information about this applicant and the job applied to.
-1. train_features.csv
-2. test_features.csv
-3. train_salaries.csv
+1. [train_features.csv](data/train_features.csv)
+2. [test_features.csv](data/test_features.csv)
+3. [train_salaries.csv](data/train_salaries.csv)
 
 **Amazon Managed Apache Airflow (MWAA)**: A service hosted on AWS that manage Apache Airflow on the server side. This takes away the user's responsibility in repetitively configuring the airflow environment, which can be unnecessarily time-consuming and mundane. I decided to launch an airflow environment on Amazon MWAA so I can manage the data pipeline without having to worry about the underlying hardware configuration. 
 
-**Amazon Elastic MapReduce (EMR)**: Amazon EMR can be used to process a large amount of data using tools such as Apache Hadoop/Spark. The user can easily provision resources for the clusters in a highly scalable Big Data environment. 
+**Amazon Elastic MapReduce (EMR)**: Amazon EMR can be used to process a large amount of data using tools such as Apache Hadoop/Spark. The user can easily provision resources for the spark clusters in a highly scalable Big Data environment. 
 
-**Amazon CloudFormation**: A service that provisions a set of infrastructure resources in a reuseable way by a template. For example, you can launch multiple AWS services simultaneously by specifying the corresponding configuration.
+**Amazon CloudFormation**: A service that provisions a set of AWS infrastructure resources in a reuseable way through a template. For example, you can launch multiple AWS services simultaneously by specifying the corresponding configuration.
 
 ## Goal
 Launch an Amazon MWAA environment to create a data pipeline that orchestrates a batch ETL processing workflow in Amazon EMR.
@@ -31,7 +31,7 @@ An Amazon MWAA environment requires the following resources:
 - A S3 gateway VPC endpoint in each availability zone to ensure private connection between Amazon MWAA and Amazon S3.
 - An EMR interface VPC endpoint in each availability zone to ensure secure connection to Amazon EMR from Amazon MWAA.
 
-All the above resources are provisioned in the template airflow_cft.yml using Amazon CloudFormation. These are essential in properly setting up the airflow environment in AWS MWAA. Reference the workflow diagram below for a clearer illustration. 
+All the above resources are provisioned with the template [airflow_cft.yml](airflow_cft.yml) using Amazon CloudFormation. (The template is retrieved from the AWS Big Data Blog [Orchestrating analytics jobs on Amazon EMR Notebooks using Amazon MWAA](https://aws.amazon.com/blogs/big-data/orchestrating-analytics-jobs-on-amazon-emr-notebooks-using-amazon-mwaa/). You may also create the same template using Amazon CloudFormation template designer if you want to gain some practice) These are essential in properly setting up the airflow environment in AWS MWAA. Reference the workflow diagram below for a clearer illustration. 
 
 ## Workflow Diagram
 
@@ -85,6 +85,15 @@ At a high-level, the data pipeline orchestrates the following tasks:
 ***5. After the Spark step is completed, go to S3 bucket and check the output***
 
 ![](images/output.PNG)
+
+# References
+
+1. <https://aws.amazon.com/blogs/big-data/orchestrating-analytics-jobs-on-amazon-emr-notebooks-using-amazon-mwaa/>
+2. <https://docs.aws.amazon.com/mwaa/latest/userguide/samples-emr.html>
+3. <https://aws.amazon.com/emr/?whats-new-cards.sort-by=item.additionalFields.postDateTime&whats-new-cards.sort-order=desc>
+4. <https://www.startdataengineering.com/post/how-to-submit-spark-jobs-to-emr-cluster-from-airflow/>
+5. <https://airflow.apache.org/docs/apache-airflow-providers-amazon/stable/_modules/airflow/providers/amazon/aws/example_dags/example_emr_job_flow_manual_steps.html>
+6. <https://airflow.apache.org/docs/apache-airflow/1.10.12/_api/airflow/contrib/operators/index.html>
 
 
 
