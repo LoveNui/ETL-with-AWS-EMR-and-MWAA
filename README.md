@@ -51,15 +51,16 @@ At a high-level, the data pipeline orchestrates the following tasks:
 
 ## Getting Started
 
-***1. Create a keypair for instance security access***
+***1. Create an EC2 instance keypair***
 
+- The spark cluster created by Amazon EMR launches EC2 instances; you will need a keypair for secure access into the instances.
 - Go to Amazon EC2 and scroll down to the Network & Security section
 - Create a keypair in .pem format called NV-keypair (or another name you like; but make sure you manually change the keypair name in [DAG.py](dags/DAG.py).)
 - The EMR_EC2_DefaultRole and EMR_DefaultRole will be automatically created for you by AWS. These IAM roles allow your EC2 instances in the spark cluster to assume the role necessary to access and work with Amazon EMR
 
 ![](images/dag_spark_config.PNG)
 
-***2. Create an Amazon S3 bucket in the same region where you are creating the Amazon MWAA environment***
+***2. Create an Amazon S3 bucket***
 
 - Amazon MWAA isn't available across all regions. Make sure you select a region where the service is actually available.
 - Make sure the bucket name starts with 'airflow-' in order to be compatible with the template we will use later on. (You may need to change the bucket name in [DAG.py](dags/DAG.py) and [avg_sal_etl.py](avg_sal_etl.py).)
@@ -70,7 +71,7 @@ At a high-level, the data pipeline orchestrates the following tasks:
 
 ![](images/S3_bucket_prerequisites.PNG)
 
-***3. Launch the MWAA airflow environment in CloudFormation with airflow_cft.yml***
+***3. Launch the MWAA airflow environment in CloudFormation***
 
 - Copy and paste the object URL of [airflow_cft.yml](airflow_cft.yml) under Amazon S3 URL block.
 - Finish naming the CloudFormation stack and wait for the template to complete; it should take around 20 minutes.
@@ -84,10 +85,10 @@ At a high-level, the data pipeline orchestrates the following tasks:
 
 ![](images/airflow_dag.PNG)
 
-***5. Amazon EMR cluster automatically provisioned and Spark application submitted***
+***5. Go to Amazon EMR***
 
-- Go to Amazon EMR and find the cluster that's running.
-- Double check that the average salary step is in queue waiting to be executed.
+- Find the 'salary-prediction-emr' spark cluster that is running. 
+- Go to the step panel and double check that the average_salary step is in queue waiting to be executed.
 
 ![](images/spark_step.PNG)
 
@@ -95,9 +96,21 @@ At a high-level, the data pipeline orchestrates the following tasks:
 
 ![](images/salary_pipeline_dag_tree.PNG)
 
-***6. After the Spark step is completed, go to S3 bucket and check the output***
+***6. Check the output***
+
+- Go to the S3 bucket and check the output folder.
 
 ![](images/output.PNG)
+
+- The Spark job executed in Amazon EMR calculates the average salary of each group within each categorical variables. For example, the following output is the average salary of each industry
+
+![](images/output_exmaple.PNG)
+
+***7. Clean up the environment***
+
+- Amazon EMR and MWAA do incur some charges so it is essential to end these services when not in use.
+- Go to Amazon CloudFormation and delete the template. This step will delete all the resources you created (e.g VPC, endpoints, NAT gateway, airflow environment, etc).
+- Go to Amazon S3 and delete the bucket. 
 
 # References
 
