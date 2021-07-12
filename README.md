@@ -66,12 +66,14 @@ At a high-level, the data pipeline orchestrates the following tasks:
 - Create a folder named data and upload the files [train_features.csv](data/train_features.csv), [train_salaries.csv](data/train_salaries.csv), and [test_features.csv](data/test_features.csv). 
 - Create a folder named dags and upload the [DAG.py](dags/DAG.py) file. You must put the file in the dags folder since the airflow environment will look specifically for this folder.
 - Create a folder named etl and upload the [avg_sal_etl.py](avg_sal_etl.py) file.
+- Upload the [airflow_cft.yml](airflow_cft.yml) template. Amazon CloudFormation will look for this template in the bucket.
 
 ![](images/S3_bucket_prerequisites.PNG)
 
 ***3. Launch the MWAA airflow environment in CloudFormation with airflow_cft.yml***
 
-- Wait for the template to complete; it should take around 20 minutes.
+- Copy and paste the object URL of [airflow_cft.yml](airflow_cft.yml) under Amazon S3 URL block.
+- Finish naming the CloudFormation stack and wait for the template to complete; it should take around 20 minutes.
 
 ![](images/cloudformation_template.PNG)
 
